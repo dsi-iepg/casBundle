@@ -1,0 +1,19 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # Ici c'est le namespace
+  Iepg\Bundle\Cas\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
+ 
+  Iepg\Bundle\Cas\Controller\CasAuthenticator: 
+    - '%cas_connection.cas_host%'
+    - '%cas_connection.cas_path%'
+    - '%cas_connection.cas_port%'
+    - '%cas_connection.cas_ca%'
+    - '%cas_connection.cas_ca_path%'

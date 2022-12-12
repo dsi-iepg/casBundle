@@ -1,0 +1,44 @@
+{
+  "name": "dsi-iepg/cas-connection",
+  "type": "symfony-bundle",
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "description": "Mise en place d'une authentification par CAS",
+  "keywords": [
+    "cas", "casphp", "iepg"
+  ],
+  "homepage": "https://github.com/dsi-iepg/cas-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Laurent Gina",
+      "email": "laurengina@iegp.fr",
+      "homepage": "http://test.ts",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.5",
+    "symfony/framework-bundle": "^5.4 || ^6.0",
+    "symfony/security-bundle": "^5.4 || ^6.0",
+    "symfony/security-core": "^5.4 || ^6.0",
+    "symfony/security-http": "^5.4 || ^6.0",
+    "symfony/http-client": "^5.4 || ^6.0",
+    "symfony/twig-bundle": "^5.4 || ^6.0",
+    "doctrine/annotations": "^1.14",
+    "apereo/phpcas": "^1.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Iepg\\Bundle\\Cas\\": "/src"
+    }
+  },
+  "extra": {
+    "symfony": {
+      "endpoint": [
+        "https://api.github.com/repos/dsi-iepg/recipesTest/contents/index.json",
+        "flex://defaults"
+      ]
+    }
+  }
+}
