@@ -4,7 +4,7 @@ Cas connection Bundle
 The bundle make and authenicator with and phpCas based on the login of user.
 If you want multiple authenticator anser yes for `does need passwords => yes`.
 
-[offical documentation](https://symfony.com/doc/current/security.html&target=_blank).
+[offical documentation](https://symfony.com/doc/current/security.html?&target=_blank).
 
 The authenticator use 2 role:
  - USER
