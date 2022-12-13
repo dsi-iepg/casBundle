@@ -31,7 +31,8 @@ cas_connection:
 add config/packages/twig.yaml
 twig:
     paths:
-        '%kernel.project_dir%/vendor/iepg/bundle/cas/src/Resources/views': cas_connection
+        '%kernel.project_dir%/vendor/dsi-iepg/cas-connection/src/Resources/views': cas_connection
+
 
 Créer l'entity Account avec la propriété login
 une page home pour les nom connecté
