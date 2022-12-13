@@ -33,6 +33,39 @@ twig:
     paths:
         '%kernel.project_dir%/vendor/dsi-iepg/cas-connection/src/Resources/views': cas_connection
 
+.env
+```
+## CAS ##
+CAS_HOST=xx
+CAS_PATH=xx
+CAS_PORT=443
+CAS_CA=false
+CAS_CA_PATH=xx
+## end CAS ##
+```
+
+```
+
+```
+
+add in config/packages/security.yaml
+security:
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: login
+    
+    firewalls:
+        main:
+            provider: app_user_provider
+            # TODO ajouter l'authentificateur du Bundle
+            custom_authenticator: Iepg\Bundle\Cas\Controller\CasAuthenticator
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/cas-connection/cas-admin, roles: ROLE_ADMIN }
+        - { path: ^/cas-connection/cas-user, roles: ROLE_USER }
 
 Créer l'entity Account avec la propriété login
 une page home pour les nom connecté

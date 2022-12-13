@@ -19,12 +19,12 @@
   ],
   "require": {
     "php": ">=7.2.5",
-    "symfony/framework-bundle": "^5.4 || ^6.0",
-    "symfony/security-bundle": "^5.4 || ^6.0",
-    "symfony/security-core": "^5.4 || ^6.0",
-    "symfony/security-http": "^5.4 || ^6.0",
-    "symfony/http-client": "^5.4 || ^6.0",
-    "symfony/twig-bundle": "^5.4 || ^6.0",
+    "symfony/framework-bundle": "^5.4 || ^6",
+    "symfony/security-bundle": "^5.4 || ^6",
+    "symfony/security-core": "^5.4 || ^6",
+    "symfony/security-http": "^5.4 || ^6",
+    "symfony/http-client": "^5.4 || ^6",
+    "symfony/twig-bundle": "^5.4 || ^6",
     "apereo/phpcas": "^1.6",
     "symfony/orm-pack": "^2"
   },
