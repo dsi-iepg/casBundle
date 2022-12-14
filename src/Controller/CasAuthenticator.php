@@ -23,6 +23,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
     private Int $cas_port;
     private Bool $cas_ca;
     private String $cas_ca_path;
+    private String $dispatcher_name;
     
     public function __construct(
         String $cas_host,
@@ -30,6 +31,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         Int $cas_port,
         Bool $cas_ca,
         String $cas_ca_path,
+        String $cas_dispatcher_name,
         UrlGeneratorInterface $router)
     {
         $this->router = $router;
@@ -38,6 +40,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         $this->cas_port = $cas_port;
         $this->cas_ca = $cas_ca;
         $this->cas_ca_path = $cas_ca_path;
+        $this->cas_dispatcher_name = $cas_dispatcher_name;
     }
 
     public function supports(Request $request): ?bool
@@ -75,7 +78,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return new RedirectResponse(
-            $this->router->generate('cas_dispatcher')
+            $this->router->generate($this->cas_dispatcher_name)
         );
     }
 

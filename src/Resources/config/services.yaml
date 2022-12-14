@@ -17,3 +17,4 @@ services:
     - '%cas_connection.cas_port%'
     - '%cas_connection.cas_ca%'
     - '%cas_connection.cas_ca_path%'
+    - '%cas_connection.cas_dispatcher_name%'

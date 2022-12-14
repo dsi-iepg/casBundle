@@ -27,6 +27,9 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('cas_ca_path')
             ->defaultValue(null)
             ->end()
+            ->scalarNode('cas_dispatcher_name')
+            ->defaultValue('cas_dispatcher')
+            ->end()
 
             ->end();
 
