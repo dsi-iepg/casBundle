@@ -37,7 +37,7 @@
   "extra": {
     "symfony": {
       "endpoint": [
-        "https://api.github.com/repos/dsi-iepg/recipesTest/contents/index.json",
+        "https://raw.githubusercontent.com/symfony/recipes-contrib/flex/pull-1459/index.json",
         "flex://defaults"
       ]
     }
