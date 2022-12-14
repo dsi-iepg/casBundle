@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $builder->getRootNode();
         $rootNode->children()
             ->scalarNode('cas_host')
-            ->isRequired()
+            ->defaultValue(null)
             ->end()
             ->scalarNode('cas_path')
             ->isRequired()

@@ -24,6 +24,8 @@ class CasConnectionExtension extends Extension implements PrependExtensionInterf
         $container->setParameter('cas_connection.cas_port', $config['cas_port']);
         $container->setParameter('cas_connection.cas_ca', $config['cas_ca']);
         $container->setParameter('cas_connection.cas_ca_path', $config['cas_ca_path']);
+        $container->setParameter('cas_connection.cas_dispatcher_name', $config['cas_dispatcher_name']);
+
     }  
 
     public function prepend(ContainerBuilder $container)
