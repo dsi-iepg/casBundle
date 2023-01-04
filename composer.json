@@ -24,10 +24,7 @@
     "symfony/framework-bundle": "^5.4 || ^6",
     "symfony/http-client": "^5.4 || ^6",
     "symfony/orm-pack": "^2",
-    "symfony/security-bundle": "^5.4 || ^6",
-    "symfony/security-core": "^5.4 || ^6",
-    "symfony/security-http": "^5.4 || ^6",
-    "symfony/twig-bundle": "^5.4 || ^6"
+    "symfony/maker-bundle": "^1.39"
   },
   "autoload": {
     "psr-4": {
