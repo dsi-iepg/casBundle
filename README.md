@@ -43,6 +43,8 @@ Add in `config/bundles.php`
 
 Add in `.env`
 ```
+#.env
+...
 #### Parameters for CAS connection ###
 CAS_HOST=cas-adresse.com
 # This value is optional
@@ -64,11 +66,13 @@ CAS_CA_PATH=
 # The default value is 'cas_dispatcher'
 CAS_DISPATCHER_NAME=
 #### end of Cas-connection ####
+...
 ```
 
 Add in `config/packages/security.yaml`
 
 ```
+#config/packages/security.yaml
 ...
    firewalls:
       main:
@@ -79,6 +83,8 @@ Add in `config/packages/security.yaml`
 
 Or if you use multiple authenticators
 ```
+#config/packages/security.yaml
+   ...
    firewalls:
       main:
          ...
@@ -93,8 +99,9 @@ Or if you use multiple authenticators
 
 ## add Files
 
-Add file in config/packages/cas_connection.yaml
+Add file in `config/packages/cas_connection.yaml`
 ```
+#config/packages/cas_connection.yaml
 cas_connection:
     cas_host: "%env(CAS_HOST)%"
     cas_path: "%env(CAS_PATH)%"
@@ -109,16 +116,18 @@ twig:
 
 ```
 
-Add file in config/routes/cas_connection.yaml
+Add file in `config/routes/cas_connection.yaml`
 ```
+#config/routes/cas_connection.yaml
 cas_connection:
     resource: '@CasConnectionBundle/Resources/config/routes.yaml'
     prefix: /cas-connection
 
 ```
 
-Add file in src/EventListener/logoutSubcriber.php
+Add file in `src/EventListener/logoutSubcriber.php`
 ```
+//src/EventListener/logoutSubcriber.php
 namespace App\EventListener;
 
 use Iepg\Bundle\Cas\Controller\CasLogout;
