@@ -25,7 +25,7 @@
     "symfony/security-core": "^5.4 || ^6",
     "symfony/security-http": "^5.4 || ^6",
     "symfony/twig-bundle": "^5.4 || ^6",
-    "sensio/framework-extra-bundle": "^6"
+    "sensio/framework-extra-bundle": "^5.4 || ^6"
   },
   "autoload": {
     "psr-4": {

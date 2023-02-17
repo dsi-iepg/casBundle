@@ -62,7 +62,11 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
             $this->cas_path
         );
         \phpCAS::handleLogoutRequests();
-        \phpCAS::setNoCasServerValidation();
+        if ($this->cas_ca) {
+            \phpCAS::setCasServerCACert(realpath($this->cas_ca_path));
+        } else {
+            \phpCAS::setNoCasServerValidation();
+        }
         \phpCAS::setLang(PHPCAS_LANG_FRENCH);
         \phpCAS::forceAuthentication();
         \phpCAS::checkAuthentication();
