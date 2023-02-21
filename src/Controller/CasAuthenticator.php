@@ -24,7 +24,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
     private Bool $cas_ca;
     private String $cas_ca_path;
     private String $dispatcher_name;
-    
+
     public function __construct(
         String $cas_host,
         String $cas_path,
@@ -32,8 +32,8 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         Bool $cas_ca,
         String $cas_ca_path,
         String $cas_dispatcher_name,
-        UrlGeneratorInterface $router)
-    {
+        UrlGeneratorInterface $router
+    ) {
         $this->router = $router;
         $this->cas_host = $cas_host;
         $this->cas_path = $cas_path;
@@ -45,15 +45,20 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
 
     public function supports(Request $request): ?bool
     {
-        return (
-            $request->getMethod() === 'GET' &&
+        return ($request->getMethod() === 'GET' &&
             $request->attributes->get('_route') === 'cas_login'
         );
     }
 
     public function authenticate(Request $request): Passport
     {
-        \phpCAS::setVerbose(true);
+        $cas_path = (empty($cas_path)) ?
+            $request->getSchemeAndHttpHost()
+            :
+            $this->cas_path
+        ;
+
+        \phpCAS::setVerbose(false);
         \phpCAS::client(
             CAS_VERSION_2_0,
             $this->cas_host,
@@ -91,10 +96,10 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         // TODO: Implement onAuthenticationFailure() method.
     }
 
-   public function start(Request $request, AuthenticationException $authException = null): Response
-   {
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
         return new RedirectResponse(
             $this->router->generate('cas_login')
         );
-   }
+    }
 }
