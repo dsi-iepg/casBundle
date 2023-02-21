@@ -15,7 +15,7 @@ class CasLogout
         String $cas_path,
         Int $cas_port,
         Bool $cas_ca,
-        String $cas_ca_path,
+        String $cas_ca_path
     ) {
         $this->cas_host = $cas_host;
         $this->cas_path = $cas_path;
