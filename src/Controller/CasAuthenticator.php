@@ -61,10 +61,10 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         \phpCAS::setVerbose(false);
         \phpCAS::client(
             CAS_VERSION_2_0,
-            $cas_host,
+            $this->cas_host,
             $this->cas_port,
             '',
-            $this->cas_path
+            $cas_path
         );
         \phpCAS::handleLogoutRequests();
         if ($this->cas_ca) {
