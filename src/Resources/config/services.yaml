@@ -18,3 +18,8 @@ services:
     - '%cas_connection.cas_ca%'
     - '%cas_connection.cas_ca_path%'
     - '%cas_connection.cas_dispatcher_name%'
+
+  Iepg\Bundle\Cas\Controller\CasLogout: 
+    - '%cas_connection.cas_host%'
+    - '%cas_connection.cas_path%'
+    - '%cas_connection.cas_port%'
