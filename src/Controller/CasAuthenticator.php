@@ -23,7 +23,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
     private Int $cas_port;
     private Bool $cas_ca;
     private String $cas_ca_path;
-    private String $dispatcher_name;
+    private String $cas_dispatcher_name;
 
     public function __construct(
         String $cas_host,
