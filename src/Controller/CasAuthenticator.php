@@ -86,14 +86,19 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $target = (null == $this->cas_dispatcher_name)? 'cas_dispatcher' : $this->cas_dispatcher_name;
         return new RedirectResponse(
-            $this->router->generate($this->cas_dispatcher_name)
+            $this->router->generate($target)
         );
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        // TODO: Implement onAuthenticationFailure() method.
+        $target = (null == $this->cas_dispatcher_name)? 'cas_dispatcher' : $this->cas_dispatcher_name;
+        
+        return new RedirectResponse(
+            $this->router->generate($target)
+        );
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response
