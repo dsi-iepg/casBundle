@@ -65,6 +65,9 @@ CAS_CA_PATH=
 # Where does the user go according to his role 
 # The default value is 'cas_dispatcher'
 CAS_DISPATCHER_NAME=
+# this value is optional. YOU CAN CUSTOMIZE THE PAGE WHEN A USER IS SUCCESSFULLY AUTHENTICATED 
+# BUT DOES NOT HAVE ACCESS RIGHTS TO THIS APPLICATION
+CAS_USER_UNKNOW=
 #### end of Cas-connection ####
 ...
 ```

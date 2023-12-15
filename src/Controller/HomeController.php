@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/cas-anonymous-home", name="cas_anonymous_home")
+     * @Route("/cas_anonymous-home", name="cas_anonymous_home")
      */
     public function index(): Response
     {
@@ -19,7 +19,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/cas-user-home", name="cas_user_home")
+     * @Route("/cas_user-home", name="cas_user_home")
      */
     public function indexUser(): Response
     {
@@ -32,7 +32,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/cas-admin-home", name="cas_admin_home")
+     * @Route("/cas_admin-home", name="cas_admin_home")
      */
     public function indexAdmin(): Response
     {
@@ -41,6 +41,16 @@ class HomeController extends AbstractController
         return $this->render('@cas_connection/index_admin.html.twig', [
             'controller_name' => 'HomeController',
             'admin' => $admin,
+        ]);
+    }
+
+    /**
+     * @Route("/cas_unknow-home", name="cas_user_unknow")
+     */
+    public function indexUserUnknow(): Response
+    {
+        return $this->render('@cas_connection/index.html.twig', [
+            'controller_name' => 'HomeController',
         ]);
     }
 
@@ -63,7 +73,6 @@ class HomeController extends AbstractController
         if ($this->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('cas_user_home');
         };
-        
         return $this->redirectToRoute('cas_anonymous_home');
     }
 }

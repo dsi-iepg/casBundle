@@ -1,14 +1,50 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification Réussie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
 
-{% block title %}you are not registered !{% endblock %}
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-{% block body %}
+        h2 {
+            color: #333;
+        }
 
-    <div class="example-wrapper">
-        <h1>Bienvenue</h1>
-        <p>
-            L'authentification c'est bien passé, mais il semblerait que tu n'ai pas d'accès pour cette application.
-        </p>
+        p {
+            color: #555;
+        }
 
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Successful Authentication</h2>
+        <p>You have been successfully authenticated, but you are not recognized in this application.</p>
+        <p>Please contact the IT Department (Information Technology) or your department head for further assistance.</p>
     </div>
-{% endblock %}
+</body>
+</html>

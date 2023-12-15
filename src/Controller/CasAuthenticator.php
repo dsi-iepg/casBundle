@@ -2,7 +2,6 @@
 
 namespace Iepg\Bundle\Cas\Controller;
 
-use PhpParser\Node\Expr\Cast\Bool_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,6 +23,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
     private Bool $cas_ca;
     private String $cas_ca_path;
     private String $cas_dispatcher_name;
+    private String $cas_user_unknow;
 
     public function __construct(
         String $cas_host,
@@ -32,6 +32,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         Bool $cas_ca,
         String $cas_ca_path,
         String $cas_dispatcher_name,
+        String $cas_user_unknow,
         UrlGeneratorInterface $router
     ) {
         $this->router = $router;
@@ -41,6 +42,7 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         $this->cas_ca = $cas_ca;
         $this->cas_ca_path = $cas_ca_path;
         $this->cas_dispatcher_name = $cas_dispatcher_name;
+        $this->cas_user_unknow = $cas_user_unknow;
     }
 
     public function supports(Request $request): ?bool
@@ -94,6 +96,15 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
+        if (null != $_SESSION['cas_user']) {
+            // dump($this->cas_user_unknow , (null == $this->cas_user_unknow)? 'cas_user_unknow' : $this->cas_user_unknow); exit;
+            (null == $this->cas_user_unknow)? 'cas_user_unknow' : $this->cas_user_unknow;
+
+            return new RedirectResponse(
+                $this->router->generate($this->cas_user_unknow)
+            );
+        };
+
         $target = (null == $this->cas_dispatcher_name)? 'cas_dispatcher' : $this->cas_dispatcher_name;
         
         return new RedirectResponse(

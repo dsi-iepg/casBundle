@@ -30,6 +30,9 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('cas_dispatcher_name')
             ->defaultValue('cas_dispatcher')
             ->end()
+            ->scalarNode('cas_user_unknow')
+            ->defaultValue('cas_user_unknow')
+            ->end()
 
             ->end();
 
