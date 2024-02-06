@@ -97,7 +97,8 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         if (null != $_SESSION['cas_user']) {
-            // dump($this->cas_user_unknow , (null == $this->cas_user_unknow)? 'cas_user_unknow' : $this->cas_user_unknow); exit;
+            $this->cas_user_unknow = (null == $this->cas_user_unknow)? 'cas_user_unknow' : $this->cas_user_unknow;
+            
             (null == $this->cas_user_unknow)? 'cas_user_unknow' : $this->cas_user_unknow;
 
             return new RedirectResponse(

@@ -98,7 +98,13 @@ Or if you use multiple authenticators
                - App\Security\AppAuthenticator
          ...
 ```
-
+And add 
+```
+ access_control:
+        - { path: ^/cas_, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
+        - ...
+```
+WARNING! For attention reasons, please avoid starting your own route with 'cas_'
 
 ## add Files
 
@@ -124,7 +130,7 @@ Add file in `config/routes/cas_connection.yaml`
 #config/routes/cas_connection.yaml
 cas_connection:
     resource: '@CasConnectionBundle/Resources/config/routes.yaml'
-    prefix: /cas-connection
+    prefix: /cas_connection
 
 ```
 

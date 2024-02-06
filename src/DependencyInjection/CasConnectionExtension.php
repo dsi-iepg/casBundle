@@ -32,8 +32,6 @@ class CasConnectionExtension extends Extension implements PrependExtensionInterf
     public function prepend(ContainerBuilder $container)
     {
         $twigConfig = [];
-        $twigConfig['paths'][__DIR__.'/../Resources/views'] = "tuto_tools";
-        $twigConfig['paths'][__DIR__.'/../Resources/public'] = "tuto_tools.public";
         $container->prependExtensionConfig('twig', $twigConfig);
     }   
     
