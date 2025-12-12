@@ -26,6 +26,7 @@ class CasController extends AbstractController
                 'admin' => $admin,
             ]);
         };
+
         if ($this->isGranted('ROLE_USER')) {
 
             $user = $this->getUser();
