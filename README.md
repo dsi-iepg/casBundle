@@ -125,17 +125,34 @@ twig:
 
 ```
 
-Add file in `config/routes/cas_connection.yaml`
+<!-- plus nécessaire en php8 Add file in `config/routes/cas_connection.yaml`
 ```
 #config/routes/cas_connection.yaml
 cas_connection:
     resource: '@CasConnectionBundle/Resources/config/routes.yaml'
     prefix: /cas_connection
 
+``` -->
+
+Add in file `config/routes.yaml`
+
+``` yaml
+#config/routes/cas_connection.yaml
+cas_login:
+    path: /cas_login
+    controller: Iepg\Bundle\Cas\Controller\CasAuthenticator
+
+cas_logout:
+    path: /cas_logout
+
+cas_dispatcher:
+    path: /cas_dispatcher
+    controller: Iepg\Bundle\Cas\Controller\CasController::dispatcher
 ```
 
 Add file in `src/EventListener/logoutSubcriber.php`
-```
+
+``` yaml
 //src/EventListener/logoutSubcriber.php
 namespace App\EventListener;
 

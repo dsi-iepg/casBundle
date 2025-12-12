@@ -13,37 +13,16 @@ use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
-    private $router;
-    private String $cas_host;
-    private String $cas_path;
-    private Int $cas_port;
-    private Bool $cas_ca;
-    private String $cas_ca_path;
-    private String $cas_dispatcher_name;
-    private String $cas_user_unknow;
-
     public function __construct(
-        String $cas_host,
-        String $cas_path,
-        Int $cas_port,
-        Bool $cas_ca,
-        String $cas_ca_path,
-        String $cas_dispatcher_name,
-        String $cas_user_unknow,
-        UrlGeneratorInterface $router
-    ) {
-        $this->router = $router;
-        $this->cas_host = $cas_host;
-        $this->cas_path = $cas_path;
-        $this->cas_port = $cas_port;
-        $this->cas_ca = $cas_ca;
-        $this->cas_ca_path = $cas_ca_path;
-        $this->cas_dispatcher_name = $cas_dispatcher_name;
-        $this->cas_user_unknow = $cas_user_unknow;
-    }
+        private readonly array $casConfig,
+        private readonly UrlGeneratorInterface $router,
+        private RequestStack $requestStack
+    ) {}
+    
 
     public function supports(Request $request): ?bool
     {
@@ -54,41 +33,36 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
 
     public function authenticate(Request $request): Passport
     {
-        $cas_path = (empty($cas_path)) ?
-            $request->getSchemeAndHttpHost()
-            :
-            $this->cas_path
-        ;
+        $fullBaseUrl = $this->getUrlDynamique();
 
-        \phpCAS::setVerbose(false);
+   // Initialisez phpCAS
         \phpCAS::client(
             CAS_VERSION_2_0,
-            $this->cas_host,
-            $this->cas_port,
-            '',
-            $cas_path
+            $this->casConfig['cas_host'],
+            (int) $this->casConfig['cas_port'],
+            $this->casConfig['cas_path'],
+            $fullBaseUrl,
         );
-        \phpCAS::handleLogoutRequests();
-        if ($this->cas_ca) {
-            \phpCAS::setCasServerCACert(realpath($this->cas_ca_path));
-        } else {
+
+        if ($this->casConfig['cas_ca'] === false) {
             \phpCAS::setNoCasServerValidation();
+        } elseif (!empty($this->casConfig['cas_ca_path'])) {
+            \phpCAS::setCasServerCACert($this->casConfig['cas_ca_path']);
         }
-        \phpCAS::setLang(PHPCAS_LANG_FRENCH);
+
         \phpCAS::forceAuthentication();
-        \phpCAS::checkAuthentication();
+        $username = \phpCAS::getUser();
 
-        $user = $_SESSION['cas_user'] = \phpCAS::getUser();
-
-        $_SESSION['cas_ticket'] = md5(random_bytes(32));
-        $_SESSION['cas_attributes'] = \phpCAS::getAttributes();
-
-        return new SelfValidatingPassport(new UserBadge($_SESSION['cas_user']));
+        return new SelfValidatingPassport(
+            new UserBadge($username)
+        );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        $target = (null == $this->cas_dispatcher_name)? 'cas_dispatcher' : $this->cas_dispatcher_name;
+        $target = (null == $this->casConfig['cas_dispatcher_name'])? 
+                'cas_dispatcher' : $this->casConfig['cas_dispatcher_name'];
+        
         return new RedirectResponse(
             $this->router->generate($target)
         );
@@ -118,5 +92,23 @@ class CasAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         return new RedirectResponse(
             $this->router->generate('cas_login')
         );
+    }
+
+    private function getUrlDynamique(): string
+    {
+        // Récupère la requête courante (peut être null en CLI)
+        $request = $this->requestStack->getCurrentRequest();
+
+        if (!$request) {
+            return 'http://localhost'; // Valeur de repli pour la CLI
+        }
+
+        // Cas 1 : Récupérer "https://monsite.com" (Schéma + Hôte)
+        $domain = $request->getSchemeAndHttpHost();
+
+        // Cas 2 : Récupérer "https://monsite.com/mon-app" (Si installé dans un sous-dossier)
+        $fullBaseUrl = $request->getSchemeAndHttpHost() . $request->getBaseUrl();
+
+        return $fullBaseUrl;
     }
 }

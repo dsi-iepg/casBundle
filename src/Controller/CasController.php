@@ -4,13 +4,11 @@ namespace Iepg\Bundle\Cas\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
-class HomeController extends AbstractController
+class CasController extends AbstractController
 {
-    /**
-     * @Route("/cas_anonymous-home", name="cas_anonymous_home")
-     */
+    #[Route('/cas_anonymous-home', name:'cas_anonymous_home')]
     public function index(): Response
     {
         return $this->render('@cas_connection/index.html.twig', [
@@ -18,9 +16,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cas_user-home", name="cas_user_home")
-     */
+    #[Route('/cas_user-home', name:'cas_user_home')]
     public function indexUser(): Response
     {
         $user = $this->getUser();
@@ -31,9 +27,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cas_admin-home", name="cas_admin_home")
-     */
+    #[Route('/cas_admin-home', name:'cas_admin_home')]
     public function indexAdmin(): Response
     {
         $admin = $this->getUser();
@@ -44,9 +38,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cas_unknow-home", name="cas_user_unknow")
-     */
+    #[Route('/cas_unknow-home', name:'cas_user_unknow')]
     public function indexUserUnknow(): Response
     {
         return $this->render('@cas_connection/index.html.twig', [
@@ -54,20 +46,17 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cas_login", name="cas_login")
-     */
+    #[Route('/cas_login', name:'cas_login')]
     public function cas_authenticator(): Response
     {
         return $this->redirectToRoute('cas_dispatcher');
     }
 
-    /**
-    * @Route("/cas_dispatcher", name="cas_dispatcher", methods={"GET"})
-    */
+    #[Route('/cas_dispatcher', name:'cas_dispatcher', methods:'GET')]
     public function dispatcher()
     {
         if ($this->isGranted('ROLE_ADMIN')) {
+            dd('admin');
             return $this->redirectToRoute('cas_admin_home');
         };
         if ($this->isGranted('ROLE_USER')) {
