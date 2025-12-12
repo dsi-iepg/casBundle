@@ -56,7 +56,6 @@ class CasController extends AbstractController
     public function dispatcher()
     {
         if ($this->isGranted('ROLE_ADMIN')) {
-            dd('admin');
             return $this->redirectToRoute('cas_admin_home');
         };
         if ($this->isGranted('ROLE_USER')) {
