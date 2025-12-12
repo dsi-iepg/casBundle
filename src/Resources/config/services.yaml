@@ -11,16 +11,14 @@ services:
       - '../../Resources/'
       - '../../Tests/'
  
-  Iepg\Bundle\Cas\Controller\CasAuthenticator: 
-    - '%cas_connection.cas_host%'
-    - '%cas_connection.cas_path%'
-    - '%cas_connection.cas_port%'
-    - '%cas_connection.cas_ca%'
-    - '%cas_connection.cas_ca_path%'
-    - '%cas_connection.cas_dispatcher_name%'
-    - '%cas_connection.cas_user_unknow%'
+  Iepg\Bundle\Cas\Controller\CasAuthenticator:
+      arguments:
+          $casConfig:
+              cas_host: '%env(CAS_HOST)%'
+              cas_path: '%env(CAS_PATH)%'
+              cas_port: '%env(int:CAS_PORT)%'
+              cas_ca: '%env(bool:CAS_CA)%'
+              cas_ca_path: '%env(CAS_CA_PATH)%'
+              cas_dispatcher_name: '%env(CAS_DISPATCHER_NAME)%'
+              cas_user_unknow: '%env(CAS_USER_UNKNOW)%'
 
-  Iepg\Bundle\Cas\Controller\CasLogout: 
-    - '%cas_connection.cas_host%'
-    - '%cas_connection.cas_path%'
-    - '%cas_connection.cas_port%'

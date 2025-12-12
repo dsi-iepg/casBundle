@@ -1,3 +1,27 @@
-controllers:
-  resource: ../../Controller
-  type: annotation 
+cas_login:
+    path: /cas_login
+    controller: Iepg\Bundle\Cas\Controller\CasController::login
+
+cas_anonymous_home:
+    path: /cas_anonymous_home
+    controller: Iepg\Bundle\Cas\Controller\CasController::index
+
+cas_user-home:
+    path: /cas_user-home
+    controller: Iepg\Bundle\Cas\Controller\CasController::indexUser
+
+cas_admin-home:
+    path: /cas_admin-home
+    controller: Iepg\Bundle\Cas\Controller\CasController::indexAdmin
+    
+cas_unknow-home:
+    path: /cas_unknow-home
+    controller: Iepg\Bundle\Cas\Controller\CasController::indexUserUnknow
+
+cas_logout:
+    path: /cas_logout
+    controller: Iepg\Bundle\Cas\Controller\CasController::logout
+
+cas_dispatcher:
+    path: /cas_dispatcher
+    controller: Iepg\Bundle\Cas\Controller\CasController::dispatcher
