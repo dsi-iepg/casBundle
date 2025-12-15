@@ -14,6 +14,13 @@ class CasController extends AbstractController
         return $this->redirectToRoute('cas_dispatcher');
     }
 
+    public function indexUserUnknow(): Response
+    {
+                return $this->render('@cas_connection/index.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
     #[Route('/cas_dispatcher', name: 'cas_dispatcher', methods: 'GET')]
     public function dispatcher()
     {
